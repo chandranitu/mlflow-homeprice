@@ -28,11 +28,15 @@ mlflow.set_experiment("House Price Prediction")
 
 with mlflow.start_run():
 
+    ESTIMATORS = 200
+    DEPTH = 20
+    RANDOM_STATE = 50
+
     model = RandomForestRegressor(
-        n_estimators=100,
-        max_depth=10,
-        random_state=42
-    )
+        n_estimators=ESTIMATORS,
+        max_depth=DEPTH,
+        random_state=RANDOM_STATE
+)
 
     model.fit(X_train, y_train)
 
@@ -42,8 +46,9 @@ with mlflow.start_run():
     r2 = r2_score(y_test, prediction)
 
     # Log Parameters
-    mlflow.log_param("n_estimators", 100)
-    mlflow.log_param("max_depth", 10)
+    mlflow.log_param("n_estimators", ESTIMATORS)
+    mlflow.log_param("max_depth", DEPTH)
+    mlflow.log_param("random_state", RANDOM_STATE)
 
     # Log Metrics
     mlflow.log_metric("MSE", mse)
